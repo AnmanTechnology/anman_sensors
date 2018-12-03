@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>anman_sensors</name>
+    <version>0.1.0</version>
+    <description>Collect sensors for robots. [URDF, XACRO, GAZEBO]</description>
+
+    <author email="sweilz.w@gmail.com">Liews Wuttipat</author>
+    <maintainer email="sweilz.w@gmail.com">Liews Wuttipat</maintainer>
+    <license>BSD</license>
+
+    <url type="repository">https://github.com/AnmanTechnology/anman_sensors</url>
+    <url type="bugtracker">https://github.com/AnmanTechnology/anman_sensors/issues</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    <build_depend>urdf</build_depend>
+    <build_depend>xacro</build_depend>
+    <build_export_depend>urdf</build_export_depend>
+    <build_export_depend>xacro</build_export_depend>
+    <exec_depend>urdf</exec_depend>
+    <exec_depend>xacro</exec_depend>
+
+</package>
