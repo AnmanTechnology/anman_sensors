@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<robot name="imu_mpu9250" 
+    xmlns:xacro="http://ros.org/wiki/xacro">
+
+
+    <xacro:macro name="imu_mpu9250" params="prefix parent *origin">
+        <joint name="${prefix}_fixed" type="fixed">
+            <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
+            <insert_block name="origin"/>
+            <parent link="${parent}"/>
+            <child link="${prefix}_frame"/>
+        </joint>
+
+        <link name="${prefix}_frame">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <box size="0.02 0.02 0.01"/>
+                </geometry>
+                <material name="blue"/>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <box size="0.02 0.02 0.01"/>
+                </geometry>
+                <material name="blue"/>
+            </collision>
+            <box_inertia m="0.01" x="0.02" y="0.02" z="0.02"/>
+            <!-- <inertial>
+                <mass value="1e-2" />
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+            </inertial> -->
+        </link>
+        <gazebo reference="${prefix}_frame">
+            <plugin name="${prefix}_controller" filename="libgazebo_ros_imu.so">
+                <topicName>imu/data</topicName>
+                <serviceName>imu/service</serviceName>
+                <bodyName>${prefix}_frame</bodyName>
+                <updateRateHZ>50.0</updateRateHZ>
+                <gaussianNoise>0.005</gaussianNoise>
+            </plugin>
+        </gazebo>
+    </xacro:macro>
+</robot>

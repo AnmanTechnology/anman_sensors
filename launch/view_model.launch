@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-    <arg name="name" default="intel_realsense_d435"/>
+    <arg name="name" default="imu_mpu9250"/>
     <arg name="rviz_config" default="$(find anman_sensors)/rviz/view_model.rviz"/>
     <arg name="urdf_file" default="$(find xacro)/xacro '$(find anman_sensors)/sensors/$(arg name)/$(arg name).xacro'"/>
 
