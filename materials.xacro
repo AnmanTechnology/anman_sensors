@@ -1,10 +1,14 @@
 <?xml version="1.0"?>
-<robot name="materials" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="materials" 
+    xmlns:xacro="http://ros.org/wiki/xacro">
 
     <xacro:property name="PI" value="3.14159"/>
 
     <material name="black">
         <color rgba="0.0 0.0 0.0 1.0"/>
+    </material>
+    <material name="light_black">
+        <color rgba="0.64706 0.61961 0.58824 1"/>
     </material>
     <material name="blue">
         <color rgba="0.0 0.0 0.8 1.0"/>
