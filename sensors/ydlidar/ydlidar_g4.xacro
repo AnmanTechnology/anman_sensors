@@ -67,12 +67,12 @@
                     <noise>
                         <type>gaussian</type>
                         <mean>0.0</mean>
-                        <stddev>0.0025</stddev>
+                        <stddev>0.01</stddev>
                     </noise>
                 </ray>
                 <plugin name="${prefix}_gazebo_plugin" filename="libgazebo_ros_laser.so">
                     <topicName>${prefix_topic}/scan</topicName>
-                    <frameName>/${prefix}_frame</frameName>
+                    <frameName>${prefix}_frame</frameName>
                 </plugin>
             </sensor>
         </gazebo>

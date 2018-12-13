@@ -2,7 +2,7 @@
 <robot name="imu_mpu9250" 
     xmlns:xacro="http://ros.org/wiki/xacro">
 
-    <xacro:macro name="imu_mpu9250" params="prefix parent *origin">
+    <xacro:macro name="imu_mpu9250" params="prefix parent *origin prefix_topic">
         <joint name="${prefix}_fixed" type="fixed">
             <insert_block name="origin"/>
             <parent link="${parent}"/>
@@ -29,29 +29,22 @@
 
         <gazebo reference="${prefix}_frame">
             <gravity>true</gravity>
-            <plugin filename="libhector_gazebo_ros_imu.so" name="gazebo_ros_imu">
-                <bodyName>${prefix}_frame</bodyName>
-                <updateRate>50</updateRate>
-                <serviceName>imu_service</serviceName>
-                <topicName>imu</topicName>
-                <gaussianNoise>0</gaussianNoise>
-                <xyzOffset>0 0 0</xyzOffset>
-                <rpyOffset>0 0 0</rpyOffset>
-            </plugin>
+            <sensor name="${prefix}_sensor" type="imu">
+                <pose>0 0 0 0 0 0</pose>
+                <update_rate>10</update_rate>
+                <visualize>true</visualize>
+                <always_on>true</always_on>
+                <topic>__default_topic__</topic>
+                <plugin  name="${prefix}_gazebo_plugin" filename="libgazebo_ros_imu_sensor.so">
+                    <topicName>${prefix_topic}/imu</topicName>
+                    <bodyName>base_link</bodyName>
+                    <updateRateHZ>10.0</updateRateHZ>
+                    <gaussianNoise>0.0</gaussianNoise>
+                    <xyzOffset>0 0 0</xyzOffset>
+                    <rpyOffset>0 0 0</rpyOffset>
+                    <frameName>${prefix}_frame</frameName>
+                </plugin>
+            </sensor>
         </gazebo>
-
-        <!-- <gazebo reference="${prefix}_frame">
-            <gravity>true</gravity>
-
-            <plugin name="${prefix}_controller" filename="libgazebo_ros_imu.so">
-                <alwaysOn>true</alwaysOn>
-                <topicName>imu/data</topicName>
-                <serviceName>imu/service</serviceName>
-                <bodyName>${prefix}_frame</bodyName>
-                <updateRateHZ>50.0</updateRateHZ>
-                <gaussianNoise>0.005</gaussianNoise>
-            </plugin>
-
-        </gazebo> -->
     </xacro:macro>
 </robot>
