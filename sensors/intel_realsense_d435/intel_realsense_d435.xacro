@@ -25,35 +25,41 @@
     <xacro:property name="d435_cam_depth_py" value="0.0175"/>
     <xacro:property name="d435_cam_depth_pz" value="${d435_cam_height/2}"/>
 
-    <link name="base_link"/>
-    <!-- camera body, with origin at bottom screw mount -->
-    <joint name="camera_joint" type="fixed">
-        <!-- <xacro:insert_block name="origin" /> -->
-        <parent link="base_link"/>
-        <child link="camera_link" />
-    </joint>
 
-    <link name="camera_link">
-        <visual>
-            <origin xyz="${d435_cam_mount_from_center_offset} 0.0 ${d435_cam_height/2}" rpy="${M_PI/2} 0 ${M_PI/2}"/>
-            <geometry>
-                <mesh filename="package://anman_sensors/sensors/intel_realsense_d435/meshes/d435.dae" />
-            </geometry>
-            <material name="aluminum"/>
-        </visual>
-        <collision>
-            <origin xyz="0.0 0.0 ${d435_cam_height/2}" rpy="0 0 0"/>
-            <geometry>
-                <box size="${d435_cam_depth} ${d435_cam_width} ${d435_cam_height}"/>
-            </geometry>
-        </collision>
-        <inertial>
-            <!-- The following are not reliable values, and should not be used for modeling -->
-            <mass value="0.564" />
-            <origin xyz="0 0 0" />
-            <inertia ixx="0.003881243" ixy="0.0" ixz="0.0" iyy="0.000498940" iyz="0.0" izz="0.003879257" />
-        </inertial>
-    </link>
+    <xacro:macro name="intel_realsense_d435" params="prefix parent *origin prefix_topic">
+        <joint name="${prefix}_camera_fixed" type="fixed">
+            <insert_block name="origin"/>
+            <parent link="${parent}"/>
+            <child link="${prefix}_camera_frame"/>
+        </joint>
+
+        <link name="${prefix}_camera_frame">
+            <visual>
+                <origin xyz="${d435_cam_mount_from_center_offset} 0.0 ${d435_cam_height/2}" rpy="${M_PI/2} 0 ${M_PI/2}"/>
+                <geometry>
+                    <mesh filename="package://anman_sensors/sensors/intel_realsense_d435/meshes/d435.dae" />
+                </geometry>
+                <material name="aluminum"/>
+            </visual>
+            <collision>
+                <origin xyz="0.0 0.0 ${d435_cam_height/2}" rpy="0 0 0"/>
+                <geometry>
+                    <box size="${d435_cam_depth} ${d435_cam_width} ${d435_cam_height}"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <!-- The following are not reliable values, and should not be used for modeling -->
+                <mass value="0.564" />
+                <origin xyz="0 0 0" />
+                <inertia ixx="0.003881243" ixy="0.0" ixz="0.0" iyy="0.000498940" iyz="0.0" izz="0.003879257" />
+            </inertial>
+        </link>
+
+    </xacro:macro>
+
+
+
+
 
     <!-- camera depth joints and links -->
     <joint name="camera_depth_joint" type="fixed">
@@ -114,5 +120,5 @@
         <child link="camera_color_optical_frame" />
     </joint>
     <link name="camera_color_optical_frame"/>
-    
+
 </robot>

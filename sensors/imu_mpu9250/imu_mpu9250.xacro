@@ -32,9 +32,6 @@
             <sensor name="${prefix}_sensor" type="imu">
                 <pose>0 0 0 0 0 0</pose>
                 <update_rate>10</update_rate>
-                <visualize>true</visualize>
-                <always_on>true</always_on>
-                <topic>__default_topic__</topic>
                 <plugin  name="${prefix}_gazebo_plugin" filename="libgazebo_ros_imu_sensor.so">
                     <topicName>${prefix_topic}/imu</topicName>
                     <bodyName>base_link</bodyName>
