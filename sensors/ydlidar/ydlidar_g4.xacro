@@ -53,7 +53,10 @@
                 <ray>
                     <scan>
                         <horizontal>
-                            <samples>640</samples>
+                            <!-- 180 deg -> 640 -->
+                            <!-- <samples>640</samples> --> 
+                            <!-- <samples>1280</samples>  -->
+                            <samples>${(max_angle-min_angle)*203.78}</samples> 
                             <resolution>1</resolution>
                             <min_angle>${min_angle}</min_angle>
                             <max_angle>${max_angle}</max_angle>
