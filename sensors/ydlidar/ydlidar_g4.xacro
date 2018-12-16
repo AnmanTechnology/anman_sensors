@@ -2,7 +2,7 @@
 <robot name="ydlidar_g4" 
     xmlns:xacro="http://ros.org/wiki/xacro">
 
-    <xacro:macro name="ydlidar_g4" params="prefix parent prefix_topic *origin min_angle:=-3.14159 max_angle:=3.14159 min_range:=0.26 max_range:=16.0">
+    <xacro:macro name="ydlidar_g4" params="prefix parent prefix_topic *origin visual:='true' min_angle:=-3.14159 max_angle:=3.14159 min_range:=0.26 max_range:=16.0">
         <joint name="${prefix}_base_fixed" type="fixed">
             <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
             <insert_block name="origin"/>
@@ -48,7 +48,7 @@
         <gazebo reference="${prefix}_frame">
             <sensor type="ray" name="${prefix}_sensor">
                 <pose>0 0 0 0 0 0</pose>
-                <visualize>true</visualize>
+                <visualize>${visual}</visualize>
                 <update_rate>20</update_rate>
                 <ray>
                     <scan>
