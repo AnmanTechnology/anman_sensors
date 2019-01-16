@@ -6,10 +6,10 @@
         <joint name="${prefix}_fixed" type="fixed">
             <insert_block name="origin"/>
             <parent link="${parent}"/>
-            <child link="${prefix}_frame"/>
+            <child link="${prefix}_link"/>
         </joint>
 
-        <link name="${prefix}_frame">
+        <link name="${prefix}_link">
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
@@ -27,7 +27,7 @@
             <box_inertia m="0.01" x="0.02" y="0.02" z="0.02"/>
         </link>
 
-        <gazebo reference="${prefix}_frame">
+        <gazebo reference="${prefix}_link">
             <gravity>true</gravity>
             <sensor name="${prefix}_sensor" type="imu">
                 <pose>0 0 0 0 0 0</pose>
@@ -39,7 +39,7 @@
                     <gaussianNoise>0.0</gaussianNoise>
                     <xyzOffset>0 0 0</xyzOffset>
                     <rpyOffset>0 0 0</rpyOffset>
-                    <frameName>${prefix}_frame</frameName>
+                    <frameName>${prefix}_link</frameName>
                 </plugin>
             </sensor>
         </gazebo>
