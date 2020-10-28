@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="OUTPUT_METHOD" default="screen"/>
+    <arg name="RESPAWN" default="false"/>
+
+    <arg name="sensor_name" default="imu_mpu9250"/>
+    <arg name="sensor_model" default="$(find anman_sensors)/launch/view_sensor.xacro sensor:=$(arg sensor_name)"/>
+
+    <param name="robot_description" command="$(find xacro)/xacro $(arg sensor_model)"/>
+
+    <!-- COMBINE JOINTS -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+        <param name="publish_frequency" value="50.0"/>
+    </node>
+
+    <!-- SEND FAKE JOINT VALUES -->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="$(arg OUTPUT_METHOD)" respawn="$(arg RESPAWN)">
+        <param name="publish_frequency" value="50.0"/>
+    </node>
+
+    <!-- SHOW IN Rviz -->
+    <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find anman_sensors)/rviz/view_model.rviz" output="$(arg OUTPUT_METHOD)" respawn="$(arg RESPAWN)"/>
+
+</launch>

@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "includePath": [
+                "/home/sweilz/ancube_ws/devel/include/**",
+                "/opt/ros/noetic/include/**",
+                "/home/sweilz/ancube_ws/src/ancube_ros/move_basic/include/**",
+                "/home/sweilz/ancube_ws/src/ancube_ros/rf2o_laser_odometry/include/**",
+                "/home/sweilz/ancube_ws/src/ancube_ros/teleop_twist_joy/include/**",
+                "/usr/include/**"
+            ],
+            "name": "ROS",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/lib/ccache/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++14"
+        }
+    ],
+    "version": 4
+}

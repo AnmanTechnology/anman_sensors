@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
     <name>anman_sensors</name>
-    <version>0.1.0</version>
+    <version>1.0.0</version>
     <description>Collect sensors for robots. [URDF, XACRO, GAZEBO]</description>
 
     <author email="sweilz.w@gmail.com">Liews Wuttipat</author>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="all_sensors">
+    <xacro:include filename="$(find anman_sensors)/materials.xacro"/>
+
+    <!-- IMU MPU9250 -->
+    <xacro:include filename="$(find anman_sensors)/sensors/imu_mpu9250/imu_mpu9250.xacro"/>
+
+    <!-- RPLIDAR S1 -->
+    <xacro:include filename="$(find anman_sensors)/sensors/rplidar/rplidar_s1.xacro"/>
+
+
+</robot>

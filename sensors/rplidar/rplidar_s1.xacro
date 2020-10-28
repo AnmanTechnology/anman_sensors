@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="rplidar_s1">
+
+    <xacro:macro name="rplidar_s1" params="prefix parent *origin min_angle:=-3.14159 max_angle:=3.14159 min_range:=0.1 max_range:=40.0 gpu:=^|true">
+
+        <joint name="${prefix}_base_fixed" type="fixed">
+            <xacro:insert_block name="origin"/>
+            <parent link="${parent}"/>
+            <child link="${prefix}_base_link"/>
+        </joint>
+
+        <link name="${prefix}_base_link">
+            <visual>
+                <origin xyz="0.02 -0.055 0.04" rpy="1.5707 0 1.5707"/>
+                <geometry>
+                    <mesh filename="package://anman_sensors/sensors/rplidar/meshes/rplidar-s1m1-r1.stl" scale="0.001 0.001 0.001" />
+                </geometry>
+                <material name="light_black"/>
+            </visual>
+            <collision>
+                <origin xyz="0.02 -0.055 0.04" rpy="1.5707 0 1.5707"/>
+                <geometry>
+                    <mesh filename="package://anman_sensors/sensors/rplidar/meshes/rplidar-s1m1-r1.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <mass value="1e-5" />
+                <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+            </inertial>
+        </link>
+
+        <joint name="${prefix}_fixed" type="fixed">
+            <origin xyz="0 0 0.04" rpy="0 0 0"/>
+            <parent link="${prefix}_base_link"/>
+            <child link="${prefix}_frame"/>
+        </joint>
+
+        <link name="${prefix}_frame">
+        </link>
+
+        <gazebo reference="${prefix}_frame">
+            <xacro:if value="${gpu}">
+                <xacro:property name="ray_type" value="gpu_ray" />
+                <xacro:property name="plugin_lib" value="libgazebo_ros_gpu_laser.so" />
+            </xacro:if>
+            <xacro:unless value="${gpu}">
+                <xacro:property name="ray_type" value="ray" />
+                <xacro:property name="plugin_lib" value="libgazebo_ros_laser.so" />
+            </xacro:unless>
+
+            <sensor type="${ray_type}" name="${prefix}_sensor">
+                <pose>0 0 0 0 0 0</pose>
+                <visualize>false</visualize>
+                <update_rate>10</update_rate>
+                <ray>
+                    <scan>
+                        <horizontal>
+                            <samples>361</samples>
+                            <resolution>1</resolution>
+                            <min_angle>${min_angle}</min_angle>
+                            <max_angle>${max_angle}</max_angle>
+                        </horizontal>
+                    </scan>
+                    <range>
+                        <min>${min_range}</min>
+                        <max>${max_range}</max>
+                        <resolution>0.03</resolution>
+                    </range>
+                    <noise>
+                        <type>gaussian</type>
+                        <mean>0.0</mean>
+                        <stddev>0.01</stddev>
+                    </noise>
+                </ray>
+                <plugin name="${prefix}_gazebo_plugin" filename="${plugin_lib}">
+                    <topicName>${prefix}/scan</topicName>
+                    <frameName>${prefix}_frame</frameName>
+                </plugin>
+            </sensor>
+        </gazebo>
+
+    </xacro:macro>
+</robot>

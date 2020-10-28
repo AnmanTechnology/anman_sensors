@@ -1,5 +1,15 @@
 # anman_sensors
-Collect sensors for robots. [URDF, XACRO, GAZEBO]
+Collect sensors and actuators for robots. [URDF, XACRO, GAZEBO]
+
+## View models
+You can view each model with the following command:
+```
+roslaunch anman_sensors view_sensor.launch:=SENSOR_NAME
+```
+Example:
+```
+roslaunch anman_sensors view_sensor.launch:=rplidar_s1
+```
 
 ## Sensors
 

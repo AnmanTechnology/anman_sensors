@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="view_sensor">
+    <xacro:include filename="$(find anman_sensors)/sensors/all_sensors.xacro"/>
+    <!-- Arguments -->
+    <xacro:arg name="prefix" default="sensor"/>
+    <xacro:property name="prefix" value="$(arg prefix)" />
+    <xacro:property name="sensor" value="$(arg sensor)" />
+
+    <link name="world" />
+
+    <xacro:element xacro:name="xacro:${sensor}" prefix="${prefix}" parent="world">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:element>
+</robot>

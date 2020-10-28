@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<robot name="imu_mpu9250" 
+<robot name="imu_mpu9250"
     xmlns:xacro="http://ros.org/wiki/xacro">
 
-    <xacro:macro name="imu_mpu9250" params="prefix parent *origin prefix_topic">
+    <xacro:macro name="imu_mpu9250" params="prefix ns:='' parent *origin">
         <joint name="${prefix}_fixed" type="fixed">
             <insert_block name="origin"/>
             <parent link="${parent}"/>
@@ -26,13 +26,13 @@
             </collision>
             <box_inertia m="0.01" x="0.02" y="0.02" z="0.02"/>
         </link>
-
+        <!-- 
         <gazebo reference="${prefix}_link">
             <gravity>true</gravity>
             <sensor name="${prefix}_sensor" type="imu">
                 <pose>0 0 0 0 0 0</pose>
-                <update_rate>10</update_rate>
-                <plugin  name="${prefix}_gazebo_plugin" filename="libgazebo_ros_imu_sensor.so">
+                <update_rate>100</update_rate>
+                <plugin name="${prefix}_gazebo_plugin" filename="libgazebo_ros_imu_sensor.so">
                     <topicName>${prefix_topic}/imu</topicName>
                     <bodyName>base_link</bodyName>
                     <updateRateHZ>10.0</updateRateHZ>
@@ -42,6 +42,6 @@
                     <frameName>${prefix}_link</frameName>
                 </plugin>
             </sensor>
-        </gazebo>
+        </gazebo> -->
     </xacro:macro>
 </robot>
